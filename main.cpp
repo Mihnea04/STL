@@ -1,6 +1,7 @@
 #include <iostream>
 #include <fstream>
 #include <string>
+#include <vector>
 
 using namespace std;
 
@@ -10,6 +11,7 @@ int main()
 
     int no_problems, no_doctors;
     string name, speciality;
+    vector<string> specialitate, nume;
     
     inFile >> no_problems;
 
@@ -17,7 +19,9 @@ int main()
     {
         inFile >> name;
         inFile >> speciality;
-        cout << name << ' ' << speciality << '\n';
+        specialitate.emplace_back(speciality);
+        nume.emplace_back(name);
+        //cout << name << ' ' << speciality << '\n';
     }
 
     inFile >> no_doctors;
@@ -26,7 +30,27 @@ int main()
     {
         inFile >> name;
         inFile >> speciality;
-        cout << name << ' ' << speciality << '\n';
+       
+        for (auto k = begin(specialitate); k != end(specialitate); k++)
+        {
+            if (*k == speciality)
+            {
+                int d = distance(begin(specialitate), k);
+                specialitate[d] = "Acceptat";
+            }
+        }
+        //cout << name << ' ' << speciality << '\n';
+    }
+    for (auto k = begin(specialitate); k != end(specialitate); k++)
+    {
+        int d = distance(begin(specialitate), k);
+        if (*k == "Acceptat")
+        {
+            cout << nume[d] << " " << *k << endl;
+        }
+        else {
+            cout << nume[d] << " " << "Respins" << endl;
+        }
     }
 
     return 0;
